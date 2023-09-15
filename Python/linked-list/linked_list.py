@@ -201,3 +201,32 @@ class LinkedList:
             behind = current
             current = front
         return True
+
+    # O(n)
+    # Edge cases:
+    #   1. If list is empty
+    #   2. If list has only one element
+    #   3. If sublist indexes are out of bounds
+    def sublist(self, start_index, end_index):
+        if self.length <= 1:
+            return None
+        if start_index < 0 or start_index > self.length:
+            return None
+        if end_index < 0 or end_index > self.length:
+            return None
+
+        if start_index != end_index:
+            current = self.head
+            prev = None
+            for count in range(self.length):
+                if count > end_index:
+                    prev.next = None
+                    self.tail = prev
+                    break
+                if count == start_index:
+                    self.head = current
+                    if prev:
+                        prev.next = None
+
+                prev = current
+                current = current.next
