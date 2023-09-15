@@ -97,25 +97,19 @@ def expand_node(node):
     return expanded_nodes
 
 
-def uniform_cost(start, goal, increase):
+def uniform_cost(start, goal):
     start_node = create_node(start, None, None, 0, 0)
     fringe = []
     path = []
     fringe.append(start_node)
     current = fringe.pop(0)
     while current.state != goal:
-        increase = increase + 1
-        print(goal)
-        print(current.state)
-        print(increase)
         temp = expand_node(current)
         for item in temp:
             item.depth += current.depth
             fringe.append(item)
         fringe.sort(key=lambda x: x.depth)
         current = fringe.pop(0)
-        if increase > 200000:
-            break
     while current.parent is not None:
         path.insert(0, current.operator)
         current = current.parent
@@ -165,7 +159,7 @@ def readfile(filename):
 def main():
     starting_state = [3, 2, 1, 4, 5, 6, 8, 7, 0]
 
-    result = uniform_cost(starting_state, goal_state, counter)
+    result = uniform_cost(starting_state, goal_state)
 
     if result is None:
         print("No solution found")

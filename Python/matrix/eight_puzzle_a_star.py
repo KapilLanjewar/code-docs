@@ -159,7 +159,7 @@ def readfile(filename):
 def main():
     starting_state = [3, 2, 1, 4, 5, 6, 8, 7, 0]
 
-    result = uniform_cost(starting_state, goal_state, counter)
+    result = a_star(starting_state, goal_state)
 
     if result is None:
         print("No solution found")
