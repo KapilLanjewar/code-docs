@@ -31,7 +31,7 @@ class LinkedList:
             print(temp.value)
             temp = temp.next
 
-    # O(1)
+    # O(n)
     # Edge case - If the list is empty
     def append(self, value):
         new_node = Node(value)
@@ -140,8 +140,8 @@ class LinkedList:
             return True
         return False
 
-    # O(1) for 1st and last index
-    # O(n) for indexes other than 1st and last index
+    # O(1) for first index
+    # O(n) for indexes other than first
     # Edge cases:
     #   1. If specified index is out of bound
     #   2. If the list is empty then the index must be 0
@@ -164,8 +164,8 @@ class LinkedList:
         self.length += 1
         return True
 
-    # O(1) for 1st and last index
-    # O(n) for indexes other than 1st and last index
+    # O(1) for first index
+    # O(n) for indexes other than first
     # Edge cases:
     #   1. If specified index is out of bound
     #   2. If the list is empty
@@ -209,6 +209,35 @@ class LinkedList:
             behind = current
             current = front
         return True
+
+    # O(n)
+    # Edge cases:
+    #   1. If list is empty
+    #   2. If list has only one element
+    #   3. If sublist indexes are out of bounds
+    def sublist(self, start_index, end_index):
+        if self.length <= 1:
+            return None
+        if start_index < 0 or start_index > self.length:
+            return None
+        if end_index < 0 or end_index > self.length:
+            return None
+
+        if start_index != end_index:
+            current = self.head
+            prev = None
+            for count in range(self.length):
+                if count > end_index:
+                    prev.next = None
+                    self.tail = prev
+                    break
+                if count == start_index:
+                    self.head = current
+                    if prev:
+                        prev.next = None
+
+                prev = current
+                current = current.next
 
     # *************************************************************************
     # SOLUTION
